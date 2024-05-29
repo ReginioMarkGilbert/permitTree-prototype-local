@@ -1,0 +1,160 @@
+.admin-page {
+    width: 80%;
+    margin: 0 auto;
+    padding: 15px 10px 20px 20px;
+    text-align: left;
+    color: black;
+    position: relative;
+    top: 3em;
+}
+
+.admin-page h2 {
+    color: gray;
+    font-size: 20px;
+}
+
+.admin-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.admin-page th,
+.admin-page td {
+    padding: 10px;
+    border: 2px solid #ddd;
+}
+
+.admin-page th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.admin-page .status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    color: black;
+    background-color: orange;
+    width: 100px;
+    height: 30px;
+    position: relative;
+}
+
+.status-dropdown {
+    /* This is to remove the arrow dropdown: */
+    /* appearance: none; */
+
+    outline: 0;
+    background: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 150px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    &:hover {
+        background-color: #e6e6e6;
+        border-color: #ccc;
+    }
+    &:focus {
+        border-color: #999;
+    }
+    & option {
+        background-color: #fff;
+        color: #333;
+    }
+
+}
+
+.status-dropdown.for-review {
+    background-color: orange;
+    color: white;
+}
+
+.status-dropdown.accepted {
+    background-color: green;
+    color: white;
+}
+
+.status-dropdown.in-progress {
+    background-color: orange;
+    color: white;
+}
+
+.status-dropdown.approved {
+    background-color: green;
+    color: white;
+}
+
+.status-dropdown.rejected {
+    background-color: red;
+    color: white;
+}
+
+.status-dropdown:hover {
+    background-color: #e6e6e6;
+    border-color: #ccc;
+}
+
+.status-dropdown:focus {
+    border-color: #999;
+}
+
+.status-dropdown option {
+    background-color: #fff;
+    color: #333;
+}
+
+.update_button {
+    background-color: #101111;
+    color: white;
+    font-size: 12px;
+    border: 2px solid black;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.update_button:hover {
+    transform: scale(1.03);
+    background-color: #333;
+}
+
+.delete_button {
+    background-color: transparent;
+    color: black;
+    border: 1px solid black;
+    margin-left: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete_button:hover {
+    background-color: #333;
+    transform: scale(1.03);
+    color: white;
+}
+
+.home-button {
+    width: 100px;
+}
+
+.home-button img {
+    width: 25px;
+    height: 25px;
+}
+
+.home-button img:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
