@@ -18,7 +18,7 @@ const HomePage = ({ onApply, onViewStatus, onAdminView }) => {
 
                 <button className="admin-view-button" onClick={onAdminView}>
                     <img src={adminIcon} alt="Admin Icon" className="admin-icon_black" />
-                    <img src={adminIconWhite} className="admin-icon_white" />
+                    <img src={adminIconWhite} alt="Admin Icon" className="admin-icon_white" />
                     Admin View
                 </button>
             </div>

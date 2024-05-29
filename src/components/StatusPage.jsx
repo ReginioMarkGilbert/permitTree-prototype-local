@@ -122,7 +122,7 @@ const StatusPage = ({ applicationId, onHome }) => {
                     {applications.map(application => (
                         <tr key={application._id}>
                             <td>Chainsaw Application</td>
-                            <td>{application._id}</td>
+                            <td>{application.customId}</td>
                             <td><span className={`status ${application.status.toLowerCase().replace(' ', '-')}`}>{application.status}</span></td>
                             <td>
                                 <button className='update_button' onClick={() => handleUpdateClick(application)}>Update Form</button>

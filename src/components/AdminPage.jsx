@@ -138,7 +138,7 @@ const AdminPage = ({ onHome }) => {
                     {applications.map((application) => (
                         <tr key={application._id}>
                             <td>Chainsaw Application</td>
-                            <td>{application._id}</td>
+                            <td>{application.customId}</td>
                             <td>
                                 <select
                                     className={`status-dropdown ${application.status.toLowerCase().replace(' ', '-')}`}
