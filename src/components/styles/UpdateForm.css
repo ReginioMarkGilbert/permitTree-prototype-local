@@ -29,12 +29,14 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
+    border-radius: 5px;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     z-index: 1000;
     width: 80%;
     max-width: 700px;
+    height: 500px;
     margin: 10px auto;
 
     .form-section-update_form {
@@ -79,7 +81,7 @@
         margin-right: 10px;
         font-size: 15px;
         cursor: pointer;
-        background-color: #007BFF;
+        /* background-color: #007BFF; */
         color: white;
         border: none;
         border-radius: 4px;
@@ -123,19 +125,21 @@
 
 .store-selection__container {
     padding: 20px;
-    /* text-align: center; */
     border-radius: 10px;
     width: 200px;
     padding: 0;
     position: relative;
-    bottom: 130px;
-    right: 30.5rem;
+    bottom: 9rem;
+    right: 30.7rem;
 
     .store-selection__title {
+        position: relative;
+        top: 8px;
         color: #333;
         font-weight: normal;
         font-size: 12px;
     }
+
     .store-selection__select {
         width: 200px;
         height: 35px;
@@ -143,8 +147,96 @@
         padding: 0.5rem;
         border: 1px solid #ccc;
         border-radius: 4px;
-        font-size: 1rem;
         /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
         font-size: 14px;
     }
 }
+
+.update-form-popup .update_form_file-upload-container {
+    position: relative;
+    bottom: 12.5em;
+    right: 10.2em;
+    color: black;
+
+    /* .update_form_label-file {
+        position: relative;
+        top: 1em;
+        left: 22.8em;
+        color: black;
+    } */
+
+    /* Change uploaded image/s of requirements */
+    .update_form_label-file {
+        position: relative;
+        top: 4.5em;
+        left: 14.4em;
+        color: black;
+    }
+
+    img {
+        margin-right: 10px;
+        width: 18px;
+        height: 18px;
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        position: relative;
+        top: 3.8em;
+        left: 13.3em;
+        width: 110px;
+        height: 33px;
+        border: 1px solid #cccccc;
+        background-color: transparent;
+        font-size: 13px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #ddd;
+        }
+    }
+}
+
+
+.update-form-popup .file-names {
+    position: relative;
+    bottom: 8em; /* move all the file names*/
+    right: 24.5em;
+
+    .file-name {
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        /* justify-content: space-between; */
+        justify-content:space-between;
+        gap: 5px;
+    }
+
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        position: relative;
+        left: 5px;
+        bottom: 5px;
+
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+
+        &:hover {
+            background-color: red;
+        }
+
+        img {
+            width: 10px;
+            height: 10px;
+        }
+    }
+}
+

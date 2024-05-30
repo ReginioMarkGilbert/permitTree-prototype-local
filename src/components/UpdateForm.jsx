@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './styles/UpdateForm.css';
+import uploadIcon from '../assets/upload_icn.svg';
+import closeIcon from '../assets/close_icn.svg';
 
 const UpdateForm = ({
     newName, setNewName,
@@ -10,14 +12,27 @@ const UpdateForm = ({
     newSerialNumber, setNewSerialNumber,
     newDateOfAcquisition, setNewDateOfAcquisition,
     newPowerOutput, setNewPowerOutput,
+    newFileNames, setNewFileNames,
     handleUpdateSubmit,
     setShowUpdateForm
 }) => {
+
     const [store, setStore] = useState('');
 
     const handleSelect = (event) => {
         setStore(event.target.value);
     };
+
+    const handleFileChange = (event) => {
+        const newFiles = event.target.files;
+        setNewFileNames(prevFiles => [...prevFiles, ...newFiles]);
+    };
+
+    const handleRemoveFile = (fileNameToRemove) => {
+        setNewFileNames(prevFileNames => prevFileNames.filter(fileName => fileName !== fileNameToRemove));
+    };
+
+
 
     return (
         <div className="update-form-popup">
@@ -97,6 +112,7 @@ const UpdateForm = ({
                     <button type="submit">Update</button>
                     <button type="button" onClick={() => setShowUpdateForm(false)}>Cancel</button>
                 </div>
+
                 <div className="store-selection__container">
                     <h3 className="store-selection__title">Select a Store</h3>
                     <select className="store-selection__select" value={store} onChange={handleSelect}>
@@ -106,10 +122,40 @@ const UpdateForm = ({
                         <option value="store3">Store 3</option>
                     </select>
                 </div>
+
+                <div className="update_form_file-upload-container">
+                    <label className='update_form_label-file'>change uploaded image/s of requirements</label>
+                    <input
+                        type="file"
+                        id="fileUpload"
+                        name="fileUpload"
+                        accept="image/*,.pdf,.docx"
+                        multiple
+                        onChange={handleFileChange}
+                    />
+                    <button className="update_form_file-upload-label" style={{color: 'black'}} onClick={() => document.getElementById('fileUpload').click()}>
+                        <img src={uploadIcon} alt="Upload Icon"/>
+                        Add file
+                    </button>
+                </div>
+                <div id="fileNames" className="file-names">
+                    {newFileNames.map((fileName, index) => (
+                        <div key={index} className="file-name">
+                            {fileName}
+                            <button type="button" className="remove-file-button" onClick={() => handleRemoveFile(fileName)}>
+                                <img className='remove-file-icon' src={closeIcon} alt="Close Icon" />
+                            </button>
+                        </div>
+                    ))}
+                </div>
+
             </form>
         </div>
     );
 };
 
 export default UpdateForm;
+
+
+
 

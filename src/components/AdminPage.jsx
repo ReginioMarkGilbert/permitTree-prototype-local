@@ -16,6 +16,7 @@ const AdminPage = ({ onHome }) => {
     const [newSerialNumber, setNewSerialNumber] = useState('');
     const [newDateOfAcquisition, setNewDateOfAcquisition] = useState('');
     const [newPowerOutput, setNewPowerOutput] = useState('');
+    const [newFileNames, setNewFileNames] = useState([]);
 
     useEffect(() => {
         fetchApplications();
@@ -45,6 +46,7 @@ const AdminPage = ({ onHome }) => {
         setNewSerialNumber(application.serialNumber);
         setNewDateOfAcquisition(application.dateOfAcquisition);
         setNewPowerOutput(application.powerOutput);
+        setNewFileNames(application.fileNames || []);
         setShowUpdateForm(true);
     };
 
@@ -59,7 +61,8 @@ const AdminPage = ({ onHome }) => {
             model: newModel,
             serialNumber: newSerialNumber,
             dateOfAcquisition: newDateOfAcquisition,
-            powerOutput: newPowerOutput
+            powerOutput: newPowerOutput,
+            fileNames: newFileNames
         };
 
         try {
@@ -179,6 +182,8 @@ const AdminPage = ({ onHome }) => {
                     setNewDateOfAcquisition={setNewDateOfAcquisition}
                     newPowerOutput={newPowerOutput}
                     setNewPowerOutput={setNewPowerOutput}
+                    newFileNames={newFileNames}
+                    setNewFileNames={setNewFileNames}
                     handleUpdateSubmit={handleUpdateSubmit}
                     setShowUpdateForm={setShowUpdateForm}
                 />

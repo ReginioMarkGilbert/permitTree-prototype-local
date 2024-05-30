@@ -31,7 +31,8 @@ const ApplicationForm = ({ onSubmit }) => {
             model,
             serialNumber,
             dateOfAcquisition,
-            powerOutput
+            powerOutput,
+            fileNames // Add this line
         };
 
         try {
