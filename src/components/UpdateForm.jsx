@@ -133,7 +133,7 @@ const UpdateForm = ({
                         multiple
                         onChange={handleFileChange}
                     />
-                    <button className="update_form_file-upload-label" style={{color: 'black'}} onClick={() => document.getElementById('fileUpload').click()}>
+                    <button className="update_form_file-upload-label" style={{color: 'black'}} onClick={(e) => { e.preventDefault(); document.getElementById('fileUpload').click(); }}>
                         <img src={uploadIcon} alt="Upload Icon"/>
                         Add file
                     </button>
