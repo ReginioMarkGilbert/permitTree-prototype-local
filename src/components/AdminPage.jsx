@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './styles/AdminPage.css';
 import UpdateForm from './UpdateForm';
 import backHome from '../assets/back_home.svg';
+import filter from '../assets/Filter.svg';
 
 const AdminPage = ({ onHome }) => {
     const [applications, setApplications] = useState([]);
+    const [filteredApplications, setFilteredApplications] = useState([]);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [selectedApplication, setSelectedApplication] = useState(null);
+    const [searchInput, setSearchInput] = useState('');
+    const [sortOption, setSortOption] = useState('');
 
     const [newName, setNewName] = useState('');
     const [newAddress, setNewAddress] = useState('');
@@ -17,11 +21,15 @@ const AdminPage = ({ onHome }) => {
     const [newDateOfAcquisition, setNewDateOfAcquisition] = useState('');
     const [newPowerOutput, setNewPowerOutput] = useState('');
     const [newFileNames, setNewFileNames] = useState([]);
-    const [newStore, setNewStore] = useState(''); // Added this line
+    const [newStore, setNewStore] = useState('');
 
     useEffect(() => {
         fetchApplications();
     }, []);
+
+    useEffect(() => {
+        handleSearchAndFilter();
+    }, [searchInput, sortOption, applications]);
 
     const fetchApplications = async () => {
         try {
@@ -29,12 +37,31 @@ const AdminPage = ({ onHome }) => {
             if (response.ok) {
                 const data = await response.json();
                 setApplications(data);
+                setFilteredApplications(data);
             } else {
                 console.error('Failed to fetch applications', response.statusText);
             }
         } catch (error) {
             console.error('Error:', error);
         }
+    };
+
+    const handleSearchAndFilter = () => {
+        let filtered = applications.filter(application =>
+            application.customId.includes(searchInput)
+        );
+
+        if (sortOption === 'id-asc') {
+            filtered.sort((a, b) => a.customId.localeCompare(b.customId));
+        } else if (sortOption === 'id-desc') {
+            filtered.sort((a, b) => b.customId.localeCompare(a.customId));
+        } else if (sortOption === 'date-asc') {
+            filtered.sort((a, b) => new Date(a.dateOfSubmission) - new Date(b.dateOfSubmission));
+        } else if (sortOption === 'date-desc') {
+            filtered.sort((a, b) => new Date(b.dateOfSubmission) - new Date(a.dateOfSubmission));
+        }
+
+        setFilteredApplications(filtered);
     };
 
     const handleUpdateClick = (application) => {
@@ -48,7 +75,7 @@ const AdminPage = ({ onHome }) => {
         setNewDateOfAcquisition(application.dateOfAcquisition);
         setNewPowerOutput(application.powerOutput);
         setNewFileNames(application.fileNames || []);
-        setNewStore(application.store); // Added this line
+        setNewStore(application.store);
         setShowUpdateForm(true);
     };
 
@@ -65,7 +92,7 @@ const AdminPage = ({ onHome }) => {
             dateOfAcquisition: newDateOfAcquisition,
             powerOutput: newPowerOutput,
             fileNames: newFileNames,
-            store: newStore // Added this line
+            store: newStore
         };
 
         try {
@@ -131,6 +158,29 @@ const AdminPage = ({ onHome }) => {
                 <img src={backHome} alt="Home" />
             </div>
             <h2>Admin Dashboard</h2>
+            <div className="search-filter-container">
+                <input
+                    type="text"
+                    placeholder="Search by ID"
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    className="search-bar"
+                />
+                <div className="filter-container">
+                    <img src={filter} alt="Filter" className="filter-icon" />
+                    <select
+                        value={sortOption}
+                        onChange={(e) => setSortOption(e.target.value)}
+                        className="filter-dropdown"
+                    >
+                        <option value="">Sort By</option>
+                        <option value="id-asc">ID Ascending</option>
+                        <option value="id-desc">ID Descending</option>
+                        <option value="date-asc">Date Ascending</option>
+                        <option value="date-desc">Date Descending</option>
+                    </select>
+                </div>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -141,7 +191,7 @@ const AdminPage = ({ onHome }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {applications.map((application) => (
+                    {filteredApplications.map((application) => (
                         <tr key={application._id}>
                             <td>Chainsaw Application</td>
                             <td>{application.customId}</td>

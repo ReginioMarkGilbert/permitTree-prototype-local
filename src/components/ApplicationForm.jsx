@@ -164,12 +164,16 @@ const ApplicationForm = ({ onSubmit, selectedStore }) => {
                         type="file"
                         id="fileUpload"
                         name="fileUpload"
-                        accept="image/*,.pdf,.docx"
+                        accept="image/*,.pdf,.docx,.svg"
                         multiple
                         onChange={handleFileChange}
                         max="5" // Maximum number of files allowed
                     />
-                    <button className="file-upload-label" onClick={() => document.getElementById('fileUpload').click()}>
+                    <button
+                        className="file-upload-label"
+                        type="button"
+                        onClick={() => document.getElementById('fileUpload').click()}
+                    >
                         <img src={uploadIcon} alt="Upload Icon"/>
                         Add file
                     </button>
