@@ -118,6 +118,7 @@ const StatusPage = ({ applicationId, onHome }) => {
                         <th>Application Type</th>
                         <th>Application ID</th>
                         <th>Status</th>
+                        <th>Date Submitted</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -127,6 +128,10 @@ const StatusPage = ({ applicationId, onHome }) => {
                             <td>Chainsaw Application</td>
                             <td>{application.customId}</td>
                             <td><span className={`status ${application.status.toLowerCase().replace(' ', '-')}`}>{application.status}</span></td>
+                            <td>
+                                {new Date(application.dateOfSubmission).toLocaleDateString()} |
+                                {new Date(application.dateOfSubmission).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+                            </td>
                             <td>
                                 <button className='update_button' onClick={() => handleUpdateClick(application)}>Update Form</button>
                                 <button className='delete_button' onClick={() => handleDeleteClick(application._id)}>Delete</button>

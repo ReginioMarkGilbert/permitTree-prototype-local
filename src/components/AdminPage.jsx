@@ -33,7 +33,7 @@ const AdminPage = ({ onHome }) => {
 
     const fetchApplications = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/getApplications');
+            const response = await fetch(`http://localhost:3000/api/getApplications?sort=${sortOption}`);
             if (response.ok) {
                 const data = await response.json();
                 setApplications(data);
@@ -187,6 +187,7 @@ const AdminPage = ({ onHome }) => {
                         <th>Application Type</th>
                         <th>Application ID</th>
                         <th>Status</th>
+                        <th>Date Submitted</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -207,6 +208,10 @@ const AdminPage = ({ onHome }) => {
                                     <option value="Approved">Approved</option>
                                     <option value="Rejected">Rejected</option>
                                 </select>
+                            </td>
+                            <td>
+                                {new Date(application.dateOfSubmission).toLocaleDateString()} |
+                                {new Date(application.dateOfSubmission).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
                             </td>
                             <td>
                                 <button className='update_button' onClick={() => handleUpdateClick(application)}>Update Form</button>
