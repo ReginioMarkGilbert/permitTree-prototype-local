@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './styles/AdminPage.css';
 import UpdateForm from './UpdateForm';
 import backHome from '../assets/back_home.svg';
@@ -11,6 +11,8 @@ const AdminPage = ({ onHome }) => {
     const [selectedApplication, setSelectedApplication] = useState(null);
     const [searchInput, setSearchInput] = useState('');
     const [sortOption, setSortOption] = useState('');
+    const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+    const dropdownRef = useRef(null);
 
     const [newName, setNewName] = useState('');
     const [newAddress, setNewAddress] = useState('');
@@ -62,6 +64,15 @@ const AdminPage = ({ onHome }) => {
         }
 
         setFilteredApplications(filtered);
+    };
+
+    const toggleDropdown = () => {
+        setIsDropdownVisible(!isDropdownVisible);
+    };
+
+    const handleSortChange = (event) => {
+        setSortOption(event.target.value);
+        setIsDropdownVisible(false); // Hide dropdown after selection
     };
 
     const handleUpdateClick = (application) => {
@@ -167,18 +178,21 @@ const AdminPage = ({ onHome }) => {
                     className="search-bar"
                 />
                 <div className="filter-container">
-                    <img src={filter} alt="Filter" className="filter-icon" />
-                    <select
-                        value={sortOption}
-                        onChange={(e) => setSortOption(e.target.value)}
-                        className="filter-dropdown"
-                    >
-                        <option value="">Sort By</option>
-                        <option value="id-asc">ID Ascending</option>
-                        <option value="id-desc">ID Descending</option>
-                        <option value="date-asc">Date Ascending</option>
-                        <option value="date-desc">Date Descending</option>
-                    </select>
+                    <img src={filter} alt="Filter" className="filter-icon" onClick={toggleDropdown} />
+                    {isDropdownVisible && (
+                        <select
+                            ref={dropdownRef}
+                            value={sortOption}
+                            onChange={handleSortChange}
+                            className="filter-dropdown"
+                        >
+                            <option value="">Sort By</option>
+                            <option value="id-asc">ID Ascending</option>
+                            <option value="id-desc">ID Descending</option>
+                            <option value="date-asc">Date Ascending</option>
+                            <option value="date-desc">Date Descending</option>
+                        </select>
+                    )}
                 </div>
             </div>
             <table>

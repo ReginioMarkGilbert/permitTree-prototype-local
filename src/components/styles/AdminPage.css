@@ -56,13 +56,16 @@
     cursor: pointer;
     width: 150px;
     transition: background-color 0.3s ease, border-color 0.3s ease;
+
     &:hover {
         background-color: #e6e6e6;
         border-color: #ccc;
     }
+
     &:focus {
         border-color: #999;
     }
+
     & option {
         background-color: #fff;
         color: #333;
@@ -186,9 +189,32 @@
 }
 
 .filter-dropdown {
-    padding: 5px 10px;
+    width: 130px;
+    height: 25px;
+    padding-left: 5px;
+    /* padding-right: 10px; */
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.filter_section {
+    position: relative;
+    display: inline-block;
+}
+
+.filter_icon {
+    cursor: pointer;
+}
+
+.sort_dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    background-color: rgb(160, 29, 29);
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
