@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ApplicationForm.css';
 import uploadIcon from '../assets/upload_icn.svg';
 
-const ApplicationForm = ({ onSubmit }) => {
+const ApplicationForm = ({ onSubmit, selectedStore }) => {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
@@ -22,7 +22,7 @@ const ApplicationForm = ({ onSubmit }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         const formData = {
             name,
             address,
@@ -32,7 +32,8 @@ const ApplicationForm = ({ onSubmit }) => {
             serialNumber,
             dateOfAcquisition,
             powerOutput,
-            fileNames // Add this line
+            fileNames,
+            store: selectedStore // Add this line
         };
 
         try {
@@ -104,7 +105,6 @@ const ApplicationForm = ({ onSubmit }) => {
                         id="brand"
                         name="brand"
                         placeholder="Enter Brand"
-                        // pattern="[A-Za-z0-9 ]+"
                         value={brand}
                         onChange={(e) => setBrand(e.target.value)}
                         title="Brand can include letters and numbers"
@@ -117,7 +117,6 @@ const ApplicationForm = ({ onSubmit }) => {
                         id="model"
                         name="model"
                         placeholder="Enter Model"
-                        // pattern="[A-Za-z0-9 ]+"
                         value={model}
                         onChange={(e) => setModel(e.target.value)}
                         title="Model can include letters and numbers"
@@ -130,7 +129,6 @@ const ApplicationForm = ({ onSubmit }) => {
                         id="serialNumber"
                         name="serialNumber"
                         placeholder="Enter Serial Number"
-                        // pattern="[A-Za-z0-9]+"
                         value={serialNumber}
                         onChange={(e) => setSerialNumber(e.target.value)}
                         title="Serial Number can include letters and numbers"
@@ -153,7 +151,6 @@ const ApplicationForm = ({ onSubmit }) => {
                         id="powerOutput"
                         name="powerOutput"
                         placeholder="e.g. 5 kW or 6.7 bhp"
-                        // pattern="[0-9.]+ (kW|bhp)"
                         title="Enter power output in kW or bhp"
                         value={powerOutput}
                         onChange={(e) => setPowerOutput(e.target.value)}
@@ -172,7 +169,7 @@ const ApplicationForm = ({ onSubmit }) => {
                         onChange={handleFileChange}
                         max="5" // Maximum number of files allowed
                     />
-                    <button className="file-upload-label"onClick={() => document.getElementById('fileUpload').click()}>
+                    <button className="file-upload-label" onClick={() => document.getElementById('fileUpload').click()}>
                         <img src={uploadIcon} alt="Upload Icon"/>
                         Add file
                     </button>

@@ -13,15 +13,10 @@ const UpdateForm = ({
     newDateOfAcquisition, setNewDateOfAcquisition,
     newPowerOutput, setNewPowerOutput,
     newFileNames, setNewFileNames,
+    newStore, setNewStore,
     handleUpdateSubmit,
     setShowUpdateForm
 }) => {
-
-    const [store, setStore] = useState('');
-
-    const handleSelect = (event) => {
-        setStore(event.target.value);
-    };
 
     const handleFileChange = (event) => {
         const newFiles = event.target.files;
@@ -31,8 +26,6 @@ const UpdateForm = ({
     const handleRemoveFile = (fileNameToRemove) => {
         setNewFileNames(prevFileNames => prevFileNames.filter(fileName => fileName !== fileNameToRemove));
     };
-
-
 
     return (
         <div className="update-form-popup">
@@ -115,7 +108,7 @@ const UpdateForm = ({
 
                 <div className="store-selection__container">
                     <h3 className="store-selection__title">Select a Store</h3>
-                    <select className="store-selection__select" value={store} onChange={handleSelect}>
+                    <select className="store-selection__select" value={newStore} onChange={(e) => setNewStore(e.target.value)}>
                         <option value="">Select...</option>
                         <option value="store1">Store 1</option>
                         <option value="store2">Store 2</option>
@@ -132,6 +125,7 @@ const UpdateForm = ({
                         accept="image/*,.pdf,.docx"
                         multiple
                         onChange={handleFileChange}
+                        // required
                     />
                     <button className="update_form_file-upload-label" style={{color: 'black'}} onClick={(e) => { e.preventDefault(); document.getElementById('fileUpload').click(); }}>
                         <img src={uploadIcon} alt="Upload Icon"/>
@@ -155,7 +149,4 @@ const UpdateForm = ({
 };
 
 export default UpdateForm;
-
-
-
 

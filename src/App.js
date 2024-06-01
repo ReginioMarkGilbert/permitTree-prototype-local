@@ -33,7 +33,7 @@ const App = () => {
             {page === 'home' && <HomePage onApply={handleApply} onViewStatus={handleViewStatus} onAdminView={handleAdminView} />}
             {page === 'admin' && <AdminPage onHome={handleHome} />}
             {page === 'storeSelection' && <StoreSelectionPage onContinue={handleStoreSelection} />}
-            {page === 'form' && <ApplicationForm onSubmit={handleSubmit} />}
+            {page === 'form' && <ApplicationForm onSubmit={handleSubmit} selectedStore={selectedStore} />}
             {page === 'message' && <MessageBox onViewStatus={handleViewStatus} />}
             {page === 'status' && <StatusPage applicationId={applicationId} onHome={handleHome} />}
         </div>

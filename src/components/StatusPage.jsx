@@ -17,6 +17,7 @@ const StatusPage = ({ applicationId, onHome }) => {
     const [newDateOfAcquisition, setNewDateOfAcquisition] = useState('');
     const [newPowerOutput, setNewPowerOutput] = useState('');
     const [newFileNames, setNewFileNames] = useState([]);
+    const [newStore, setNewStore] = useState('');
 
     useEffect(() => {
         fetchApplications();
@@ -48,6 +49,7 @@ const StatusPage = ({ applicationId, onHome }) => {
         setNewDateOfAcquisition(application.dateOfAcquisition);
         setNewPowerOutput(application.powerOutput);
         setNewFileNames(application.fileNames || []);
+        setNewStore(application.store);
         setShowUpdateForm(true);
     };
 
@@ -63,7 +65,8 @@ const StatusPage = ({ applicationId, onHome }) => {
             serialNumber: newSerialNumber,
             dateOfAcquisition: newDateOfAcquisition,
             powerOutput: newPowerOutput,
-            fileNames: newFileNames
+            fileNames: newFileNames,
+            store: newStore
         };
 
         try {
@@ -153,6 +156,8 @@ const StatusPage = ({ applicationId, onHome }) => {
                     setNewPowerOutput={setNewPowerOutput}
                     newFileNames={newFileNames}
                     setNewFileNames={setNewFileNames}
+                    newStore={newStore}
+                    setNewStore={setNewStore}
                     handleUpdateSubmit={handleUpdateSubmit}
                     setShowUpdateForm={setShowUpdateForm}
                 />
