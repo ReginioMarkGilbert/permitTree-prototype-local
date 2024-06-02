@@ -101,7 +101,7 @@ const UpdateForm = ({
                     <input
                         type="date"
                         id="newDateOfAcquisition"
-                        value={newDateOfAcquisition}
+                        value={newDateOfAcquisition ? newDateOfAcquisition.split('T')[0] : ''}
                         onChange={(e) => setNewDateOfAcquisition(e.target.value)}
                         // required
                     />
