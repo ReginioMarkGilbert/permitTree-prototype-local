@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './ApplicationForm.css';
 import uploadIcon from '../assets/upload_icn.svg';
+import closeIcon from '../assets/close_icn.svg'; // Import the close icon
 
 const ApplicationForm = ({ onSubmit, selectedStore }) => {
     const [name, setName] = useState('');
@@ -17,7 +18,24 @@ const ApplicationForm = ({ onSubmit, selectedStore }) => {
     const handleFileChange = (event) => {
         const newFiles = event.target.files;
         const newFileNamesArray = Array.from(newFiles).map(file => file.name);
+
+        // Check for duplicate file names
+        const duplicateFiles = newFileNamesArray.filter(fileName => fileNames.includes(fileName));
+        if (duplicateFiles.length > 0) {
+            alert(`The following files are duplicates and will not be uploaded: ${duplicateFiles.join(', ')}`);
+            return;
+        }
+
+        if (fileNames.length + newFileNamesArray.length > 5) {
+            alert("You can only upload a maximum of 5 files.");
+            return;
+        }
+
         setFileNames(prevFileNames => [...prevFileNames, ...newFileNamesArray]);
+    };
+
+    const handleRemoveFile = (fileNameToRemove) => {
+        setFileNames(prevFileNames => prevFileNames.filter(fileName => fileName !== fileNameToRemove));
     };
 
     const handleSubmit = async (event) => {
@@ -33,7 +51,7 @@ const ApplicationForm = ({ onSubmit, selectedStore }) => {
             dateOfAcquisition,
             powerOutput,
             fileNames,
-            store: selectedStore // Add this line
+            store: selectedStore
         };
 
         try {
@@ -178,9 +196,18 @@ const ApplicationForm = ({ onSubmit, selectedStore }) => {
                         Add file
                     </button>
                 </div>
-                <div id="fileNames" className="file-names">
+                <div id="form_fileNames" className="form_file-names">
                     {fileNames.map((fileName, index) => (
-                        <div key={index} className="file-name">{fileName}</div>
+                        <div key={index} className="form_file-name">
+                            {fileName}
+                            <button
+                                type="button"
+                                className="formRemove-file-button"
+                                onClick={() => handleRemoveFile(fileName)}
+                            >
+                                <img className='remove-file-icon' src={closeIcon} alt="Close Icon" />
+                            </button>
+                        </div>
                     ))}
                 </div>
 

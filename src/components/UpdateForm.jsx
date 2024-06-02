@@ -20,7 +20,21 @@ const UpdateForm = ({
 
     const handleFileChange = (event) => {
         const newFiles = event.target.files;
-        setNewFileNames(prevFiles => [...prevFiles, ...newFiles]);
+        const newFileNamesArray = Array.from(newFiles).map(file => file.name);
+
+        // Check for duplicate file names
+        const duplicateFiles = newFileNamesArray.filter(fileName => newFileNames.includes(fileName));
+        if (duplicateFiles.length > 0) {
+            alert(`The following files are duplicates and will not be uploaded: ${duplicateFiles.join(', ')}`);
+            return;
+        }
+
+        if (newFileNames.length + newFileNamesArray.length > 5) {
+            alert("You can only upload a maximum of 5 files.");
+            return;
+        }
+
+        setNewFileNames(prevFileNames => [...prevFileNames, ...newFileNamesArray]);
     };
 
     const handleRemoveFile = (fileNameToRemove) => {
@@ -103,7 +117,7 @@ const UpdateForm = ({
 
                 <div className="form-buttons">
                     <button type="submit">Update</button>
-                    <button type="button" onClick={() => setShowUpdateForm(false)}>Cancel</button>
+                    <button type="cancel" onClick={() => setShowUpdateForm(false)}>Cancel</button>
                 </div>
 
                 <div className="store-selection__container">
@@ -149,5 +163,3 @@ const UpdateForm = ({
 };
 
 export default UpdateForm;
-
-
