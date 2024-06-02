@@ -1,16 +1,33 @@
 .status-page {
-    width: 80%;
+    width: 70%;
     margin: 0 auto;
     padding: 15px 10px 20px 20px;
     text-align: left;
     color: black;
     position: relative;
     top: 3em;
+
+    .status-cell {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 4px;
+        color: black;
+        background-color: orange; /* background color for status */
+        text-align: center;
+        left: 30px;
+    }
 }
 
 .status-page h2 {
     color: gray;
     font-size: 20px;
+    position: relative;
+    /* left: 29em; */
 }
 
 .status-page table {
@@ -23,6 +40,7 @@
 .status-page td {
     padding: 10px;
     border: 2px solid #ddd;
+    text-align: center;
     /* width: 50px */
 }
 
@@ -116,14 +134,18 @@
     }
 }
 
-.refresh-icon {
+.status-refresh-icon {
     width: 20px;
     height: 20px;
     cursor: pointer;
     transition: transform 0.3s ease;
-    margin-left: 10px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 24.6em;
+    left: 83em;
 }
 
-.refresh-icon:hover {
-    transform: rotate(90deg) scale(1.05);
+.status-refresh-icon:hover {
+    transform: rotate(100deg) scale(1.05);
 }

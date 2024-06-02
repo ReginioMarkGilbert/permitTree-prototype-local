@@ -214,8 +214,8 @@ const AdminPage = ({ onHome }) => {
                     <tr>
                         <th>Application Type</th>
                         <th>Application ID</th>
-                        <th>Status</th>
                         <th>Date Submitted</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -224,6 +224,10 @@ const AdminPage = ({ onHome }) => {
                         <tr key={application._id}>
                             <td>Chainsaw Application</td>
                             <td>{application.customId}</td>
+                            <td>
+                                {new Date(application.dateOfSubmission).toLocaleDateString()} | {
+                                new Date(application.dateOfSubmission).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+                            </td>
                             <td>
                                 <select
                                     className={`status-dropdown ${application.status.toLowerCase().replace(' ', '-')}`}
@@ -237,10 +241,7 @@ const AdminPage = ({ onHome }) => {
                                     <option value="Rejected">Rejected</option>
                                 </select>
                             </td>
-                            <td>
-                                {new Date(application.dateOfSubmission).toLocaleDateString()} | {
-                                new Date(application.dateOfSubmission).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
-                            </td>
+
                             <td>
                                 <button className='update_button' onClick={() => handleUpdateClick(application)}>Update Form</button>
                                 <button className='delete_button' onClick={() => handleDeleteClick(application._id)}>Delete</button>

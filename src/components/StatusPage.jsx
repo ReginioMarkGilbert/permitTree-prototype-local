@@ -117,14 +117,14 @@ const StatusPage = ({ applicationId, onHome }) => {
                 <img src={backHome} alt="Home" />
             </div>
             <h2>Application Status</h2>
-            <img src={refreshIcon} alt="Refresh" className="refresh-icon" onClick={handleRefreshClick} />
+            <img src={refreshIcon} alt="Refresh" className="status-refresh-icon" onClick={handleRefreshClick} />
             <table>
                 <thead>
                     <tr>
                         <th>Application Type</th>
                         <th>Application ID</th>
-                        <th>Status</th>
                         <th>Date Submitted</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -133,10 +133,12 @@ const StatusPage = ({ applicationId, onHome }) => {
                         <tr key={application._id}>
                             <td>Chainsaw Application</td>
                             <td>{application.customId}</td>
-                            <td><span className={`status ${application.status.toLowerCase().replace(' ', '-')}`}>{application.status}</span></td>
                             <td>
                                 {new Date(application.dateOfSubmission).toLocaleDateString()} | {
                                 new Date(application.dateOfSubmission).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+                            </td>
+                            <td className="status-cell">
+                                <span className={`status ${application.status.toLowerCase().replace(' ', '-')}`}>{application.status}</span>
                             </td>
                             <td>
                                 <button className='update_button' onClick={() => handleUpdateClick(application)}>Update Form</button>
