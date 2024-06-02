@@ -3,6 +3,7 @@ import './styles/AdminPage.css';
 import UpdateForm from './UpdateForm';
 import backHome from '../assets/back_home.svg';
 import filter from '../assets/Filter.svg';
+import refreshIcon from '../assets/refresh_page_icn.svg';
 
 const AdminPage = ({ onHome }) => {
     const [applications, setApplications] = useState([]);
@@ -57,6 +58,9 @@ const AdminPage = ({ onHome }) => {
             filtered.sort((a, b) => new Date(a.dateOfSubmission) - new Date(b.dateOfSubmission));
         } else if (sortOption === 'date-desc') {
             filtered.sort((a, b) => new Date(b.dateOfSubmission) - new Date(a.dateOfSubmission));
+        } else if (sortOption.startsWith('status-')) {
+            const status = sortOption.split('-').slice(1).join(' ').toLowerCase().trim();
+            filtered = filtered.filter(application => application.status.toLowerCase().trim() === status);
         }
 
         setFilteredApplications(filtered);
@@ -163,6 +167,10 @@ const AdminPage = ({ onHome }) => {
         }
     };
 
+    const handleRefreshClick = () => {
+        fetchApplications();
+    };
+
     return (
         <div className="admin-page">
             <div className="home-button" onClick={onHome}>
@@ -191,9 +199,15 @@ const AdminPage = ({ onHome }) => {
                             <option value="id-desc">ID Descending</option>
                             <option value="date-asc">Date Ascending</option>
                             <option value="date-desc">Date Descending</option>
+                            <option value="status-for-review">For Review</option>
+                            <option value="status-accepted">Accepted</option>
+                            <option value="status-in-progress">In Progress</option>
+                            <option value="status-approved">Approved</option>
+                            <option value="status-rejected">Rejected</option>
                         </select>
                     )}
                 </div>
+                <img src={refreshIcon} alt="Refresh" className="refresh-icon" onClick={handleRefreshClick} />
             </div>
             <table>
                 <thead>
@@ -224,8 +238,8 @@ const AdminPage = ({ onHome }) => {
                                 </select>
                             </td>
                             <td>
-                                {new Date(application.dateOfSubmission).toLocaleDateString()} |
-                                {new Date(application.dateOfSubmission).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+                                {new Date(application.dateOfSubmission).toLocaleDateString()} | {
+                                new Date(application.dateOfSubmission).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
                             </td>
                             <td>
                                 <button className='update_button' onClick={() => handleUpdateClick(application)}>Update Form</button>

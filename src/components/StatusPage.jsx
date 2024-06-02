@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './styles/StatusPage.css';
 import UpdateForm from './UpdateForm';
 import backHome from '../assets/back_home.svg';
+import refreshIcon from '../assets/refresh_page_icn.svg';
 
 const StatusPage = ({ applicationId, onHome }) => {
     const [applications, setApplications] = useState([]);
@@ -106,12 +107,17 @@ const StatusPage = ({ applicationId, onHome }) => {
         }
     };
 
+    const handleRefreshClick = () => {
+        fetchApplications();
+    };
+
     return (
         <div className="status-page">
             <div className="home-button" onClick={onHome}>
                 <img src={backHome} alt="Home" />
             </div>
             <h2>Application Status</h2>
+            <img src={refreshIcon} alt="Refresh" className="refresh-icon" onClick={handleRefreshClick} />
             <table>
                 <thead>
                     <tr>
@@ -129,8 +135,8 @@ const StatusPage = ({ applicationId, onHome }) => {
                             <td>{application.customId}</td>
                             <td><span className={`status ${application.status.toLowerCase().replace(' ', '-')}`}>{application.status}</span></td>
                             <td>
-                                {new Date(application.dateOfSubmission).toLocaleDateString()} |
-                                {new Date(application.dateOfSubmission).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+                                {new Date(application.dateOfSubmission).toLocaleDateString()} | {
+                                new Date(application.dateOfSubmission).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
                             </td>
                             <td>
                                 <button className='update_button' onClick={() => handleUpdateClick(application)}>Update Form</button>
