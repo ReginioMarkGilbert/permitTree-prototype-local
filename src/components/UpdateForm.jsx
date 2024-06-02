@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './styles/UpdateForm.css';
 import uploadIcon from '../assets/upload_icn.svg';
 import closeIcon from '../assets/close_icn.svg';
@@ -149,4 +149,5 @@ const UpdateForm = ({
 };
 
 export default UpdateForm;
+
 

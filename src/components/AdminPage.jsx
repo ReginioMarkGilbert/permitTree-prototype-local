@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './styles/AdminPage.css';
 import UpdateForm from './UpdateForm';
 import backHome from '../assets/back_home.svg';
@@ -25,15 +25,7 @@ const AdminPage = ({ onHome }) => {
     const [newFileNames, setNewFileNames] = useState([]);
     const [newStore, setNewStore] = useState('');
 
-    useEffect(() => {
-        fetchApplications();
-    }, []);
-
-    useEffect(() => {
-        handleSearchAndFilter();
-    }, [searchInput, sortOption, applications]);
-
-    const fetchApplications = async () => {
+    const fetchApplications = useCallback(async () => {
         try {
             const response = await fetch(`http://localhost:3000/api/getApplications?sort=${sortOption}`);
             if (response.ok) {
@@ -46,9 +38,13 @@ const AdminPage = ({ onHome }) => {
         } catch (error) {
             console.error('Error:', error);
         }
-    };
+    }, [sortOption]);
 
-    const handleSearchAndFilter = () => {
+    useEffect(() => {
+        fetchApplications();
+    }, [fetchApplications]);
+
+    const handleSearchAndFilter = useCallback(() => {
         let filtered = applications.filter(application =>
             application.customId.includes(searchInput)
         );
@@ -64,7 +60,11 @@ const AdminPage = ({ onHome }) => {
         }
 
         setFilteredApplications(filtered);
-    };
+    }, [applications, searchInput, sortOption]);
+
+    useEffect(() => {
+        handleSearchAndFilter();
+    }, [searchInput, sortOption, applications, handleSearchAndFilter]);
 
     const toggleDropdown = () => {
         setIsDropdownVisible(!isDropdownVisible);
