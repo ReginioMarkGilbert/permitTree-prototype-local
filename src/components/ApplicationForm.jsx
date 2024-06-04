@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './ApplicationForm.css';
+import './styles/ApplicationForm.css';
 import uploadIcon from '../assets/upload_icn.svg';
-import closeIcon from '../assets/close_icn.svg'; // Import the close icon
+import closeIcon from '../assets/close_icn.svg';
 
 const ApplicationForm = ({ onSubmit, selectedStore }) => {
     const [name, setName] = useState('');

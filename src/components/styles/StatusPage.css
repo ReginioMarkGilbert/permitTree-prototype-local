@@ -17,10 +17,25 @@
         padding: 5px 10px;
         border-radius: 4px;
         color: black;
-        background-color: orange; /* background color for status */
+        /* background-color: orange; */
         text-align: center;
         left: 30px;
     }
+    .status-refresh-icon {
+        width: 27px;
+        height: 27px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        bottom: 41.4em;
+        left: 20.5em;
+        &:hover {
+            transform: rotate(100deg) scale(1.05);
+        }
+    }
+
 }
 
 .status-page h2 {
@@ -59,7 +74,7 @@
     color: black;
     background-color: orange; /* background color for status */
     width: 100px;
-    height: 30px;
+    height: 25px;
     position: relative;
 }
 
@@ -90,7 +105,7 @@
 
 .update_button {
     background-color: #101111;
-    color: white; /* White text */
+    color: white;
     font-size: 12px;
     border: 2px solid black;
     letter-spacing: 1px; /* Increase the spacing between each letter */
@@ -125,7 +140,7 @@
     width: 100px;
     img {
         width: 25px;
-        height: 25px;
+        height: 2 5px;
         &:hover {
             cursor: pointer;
             transform: scale(1.1); /* Scale the image to 1.1 times its original size */
@@ -134,18 +149,3 @@
     }
 }
 
-.status-refresh-icon {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    bottom: 24.6em;
-    left: 83em;
-}
-
-.status-refresh-icon:hover {
-    transform: rotate(100deg) scale(1.05);
-}
