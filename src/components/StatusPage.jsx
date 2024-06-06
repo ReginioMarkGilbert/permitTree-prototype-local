@@ -118,6 +118,7 @@ const StatusPage = ({ applicationId }) => {
         navigate('/'); // Navigate to the home page
     };
 
+
     return (
         <div className="status-page">
             <div className="icon-container">

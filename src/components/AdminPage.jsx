@@ -1,10 +1,31 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Line } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
 import './styles/AdminPage.css';
 import UpdateForm from './UpdateForm';
 import backHome from '../assets/back_home.svg';
 import filter from '../assets/Filter.svg';
 import refreshIcon from '../assets/refresh_page_icn.svg';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
 const AdminPage = () => {
     const [applications, setApplications] = useState([]);
@@ -14,6 +35,21 @@ const AdminPage = () => {
     const [searchInput, setSearchInput] = useState('');
     const [sortOption, setSortOption] = useState('');
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+    const [treeData, setTreeData] = useState({
+        labels: [],
+        datasets: [
+            {
+                label: 'Number of Trees Cut',
+                data: [],
+                fill: false,
+                backgroundColor: 'rgba(75,192,192,0.4)',
+                borderColor: 'rgba(75,192,192,1)',
+            },
+        ],
+    });
+    const [timeFrame, setTimeFrame] = useState('Time Frame');
+    const [newTreeDate, setNewTreeDate] = useState('');
+    const [newTreeCount, setNewTreeCount] = useState('');
     const dropdownRef = useRef(null);
 
     const [newName, setNewName] = useState('');
@@ -44,9 +80,37 @@ const AdminPage = () => {
         }
     }, [sortOption]);
 
+    const fetchTreeData = useCallback(async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/getTreeData?timeFrame=${timeFrame}`);
+            if (response.ok) {
+                const data = await response.json();
+                const labels = data.map(item => new Date(item.date).toLocaleDateString());
+                const counts = data.map(item => item.count);
+                setTreeData({
+                    labels,
+                    datasets: [
+                        {
+                            label: 'Number of Trees Cut',
+                            data: counts,
+                            fill: false,
+                            backgroundColor: 'rgba(75,192,192,0.4)',
+                            borderColor: 'rgba(75,192,192,1)',
+                        },
+                    ],
+                });
+            } else {
+                console.error('Failed to fetch tree data', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }, [timeFrame]);
+
     useEffect(() => {
         fetchApplications();
-    }, [fetchApplications]);
+        fetchTreeData();
+    }, [fetchApplications, fetchTreeData]);
 
     const handleSearchAndFilter = useCallback(() => {
         let filtered = applications.filter(application =>
@@ -172,10 +236,39 @@ const AdminPage = () => {
 
     const handleRefreshClick = () => {
         fetchApplications();
+        fetchTreeData();
     };
 
     const handleHomeClick = () => {
         navigate('/'); // Navigate to the home page
+    };
+
+    const handleTimeFrameChange = (event) => {
+        setTimeFrame(event.target.value);
+    };
+
+    const handleAddTreeData = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/addTreeData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    date: newTreeDate,
+                    count: parseInt(newTreeCount, 10)
+                })
+            });
+            if (response.ok) {
+                setNewTreeDate('');
+                setNewTreeCount('');
+                fetchTreeData(); // Refresh the graph data
+            } else {
+                console.error('Failed to add tree data');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -284,9 +377,41 @@ const AdminPage = () => {
                     setShowUpdateForm={setShowUpdateForm}
                 />
             )}
+
+            <div className="graph-container">
+                <h3>Tree Data</h3>
+                <Line data={treeData} className="tree-graph"/>
+                <div className="time-frame-select">
+                    <select value={timeFrame} onChange={handleTimeFrameChange} className="time-frame-dropdown">
+                        <option value="">Time Frame</option>
+                        <option value="day">Day</option>
+                        <option value="week">Week</option>
+                        <option value="month">Month</option>
+                        <option value="year">Year</option>
+                    </select>
+                </div>
+                <div className="add-tree-data-form">
+                    <h2 className='add-tree-data-title'>Add Tree Data</h2>
+                    <div className="input-container">
+                        <input
+                            type="date"
+                            value={newTreeDate}
+                            onChange={(e) => setNewTreeDate(e.target.value)}
+                            className="input-date"
+                        />
+                        <input
+                            type="number"
+                            placeholder="Count"
+                            value={newTreeCount}
+                            onChange={(e) => setNewTreeCount(e.target.value)}
+                            className="input-count"
+                        />
+                        <button onClick={handleAddTreeData} className="add-data-button">Add Tree Data</button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
 
 export default AdminPage;
-
