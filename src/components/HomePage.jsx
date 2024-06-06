@@ -1,29 +1,26 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles/HomePage.css';
-import adminIcon from '../assets/admin_icn.svg'; // Ensure the path to the icon is correct
-import adminIconWhite from '../assets/admin_white.svg'; // Ensure the path to the icon is correct
+import denrLogo from '../assets/denr-logo.png'; // Ensure the path to the logo is correct
 
-const HomePage = ({ onApply, onViewStatus, onAdminView }) => {
-    const handleApplyClick = () => {
-        onApply(); // Use the passed function to navigate
+const WelcomePage = () => {
+    const navigate = useNavigate();
+
+    const handleGetStartedClick = () => {
+        navigate('/permits'); // Navigate to the PermitsPage
     };
 
     return (
-        <div className="page">
-            <div className="center-box">
-                <h3>Chainsaw registration</h3>
-                <p>Application for Chainsaw registration</p>
-                <button className="apply-button" onClick={handleApplyClick}>APPLY</button>
-                <button className="view-status-button" onClick={onViewStatus}>View Status</button>
-
-                <button className="admin-view-button" onClick={onAdminView}>
-                    <img src={adminIcon} alt="Admin Icon" className="admin-icon_black" />
-                    <img src={adminIconWhite} alt="Admin Icon" className="admin-icon_white" />
-                    Admin View
-                </button>
+        <div className="welcome-page">
+            <div className="welcome-container">
+                <img src={denrLogo} alt="DENR Logo" className="denr-logo" />
+                <h1>Welcome to DENR</h1>
+                <p>Department of Environment and Natural Resources</p>
+                <p>Committed to the protection, conservation, and management of the environment and natural resources for the present and future generations.</p>
+                <button className="get-started-button" onClick={handleGetStartedClick}>Get Started</button>
             </div>
         </div>
     );
 };
 
-export default HomePage;
+export default WelcomePage;

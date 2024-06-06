@@ -218,3 +218,11 @@
 .refresh-icon:hover {
     transform: rotate(90deg) scale(1.1);
 }
+
+.home-button {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+

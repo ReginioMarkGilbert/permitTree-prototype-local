@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.15ee74c6.css",
+    "main.js": "/static/js/main.31fac59f.js",
+    "static/media/denr-logo.png": "/static/media/denr-logo.a6ddf7d3a5c855985e09.png",
+    "static/media/profile-pic.svg": "/static/media/profile-pic.2c155b8449d1222b008a2a16c5e731e1.svg",
+    "static/media/admin_white.svg": "/static/media/admin_white.f8134ae7ea699c4449d11ce70101dc47.svg",
+    "static/media/admin_icn.svg": "/static/media/admin_icn.9bcd9f9de052ae77f7b82cc381715bf1.svg",
+    "static/media/upload_icn.svg": "/static/media/upload_icn.e9e7211569673dbf154a0eb87aaac0c9.svg",
+    "static/media/bellnotif.svg": "/static/media/bellnotif.e07763a4f8256756068a69e9a45739c9.svg",
+    "static/media/refresh_page_icn.svg": "/static/media/refresh_page_icn.e7e5be942f08796dd052d486a765ff6d.svg",
+    "static/media/envelope.svg": "/static/media/envelope.069f518e08559473b779fbce207aa99e.svg",
+    "static/media/back_home.svg": "/static/media/back_home.afd2af6439a436b235f39d696ef9dad2.svg",
+    "index.html": "/index.html",
+    "static/media/Filter.svg": "/static/media/Filter.f1bfc7660fac926a66aee3c85e2e8826.svg",
+    "static/media/close_icn.svg": "/static/media/close_icn.71614cf0d0c116dc05f28981e6e699c5.svg",
+    "main.15ee74c6.css.map": "/static/css/main.15ee74c6.css.map",
+    "main.31fac59f.js.map": "/static/js/main.31fac59f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.15ee74c6.css",
+    "static/js/main.31fac59f.js"
+  ]
+}

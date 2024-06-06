@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles/ApplicationForm.css';
 import uploadIcon from '../assets/upload_icn.svg';
 import closeIcon from '../assets/close_icn.svg';
@@ -8,12 +9,13 @@ const ApplicationForm = ({ onSubmit, selectedStore }) => {
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [fileNames, setFileNames] = useState([]);
-
     const [brand, setBrand] = useState('');
     const [model, setModel] = useState('');
     const [serialNumber, setSerialNumber] = useState('');
     const [dateOfAcquisition, setDateOfAcquisition] = useState('');
     const [powerOutput, setPowerOutput] = useState('');
+
+    const navigate = useNavigate(); // Initialize navigate
 
     const handleFileChange = (event) => {
         const newFiles = event.target.files;
@@ -51,8 +53,10 @@ const ApplicationForm = ({ onSubmit, selectedStore }) => {
             dateOfAcquisition,
             powerOutput,
             fileNames,
-            store: selectedStore
+            store: selectedStore // Ensure store is included in the form data
         };
+
+        console.log('Form Data:', formData); // Log the form data
 
         try {
             const response = await fetch('http://localhost:3000/api/createApplication', {
@@ -66,7 +70,7 @@ const ApplicationForm = ({ onSubmit, selectedStore }) => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Application submitted:', data);
-                onSubmit(data._id);
+                navigate('/message'); // Navigate to the MessageBox component
             } else {
                 console.error('Failed to submit application');
             }
@@ -185,7 +189,7 @@ const ApplicationForm = ({ onSubmit, selectedStore }) => {
                         accept="image/*,.pdf,.docx,.svg"
                         multiple
                         onChange={handleFileChange}
-                        max="5" // Maximum number of files allowed
+                        max="5" // Maximum number of files
                     />
                     <button
                         className="file-upload-label"
