@@ -1,19 +1,32 @@
 import React from 'react';
-import logo from '../assets/logo.png';
+import { Link } from 'react-router-dom';
+import logo from '../assets/denr-logo.png';
+import profilePic from '../assets/profile-pic.svg';
+import envelope from '../assets/envelope.svg';
+import Notification from './Notification';
 import './styles/Header.css';
 
 const Header = () => {
     return (
         <header>
-            <img src={logo} alt="Logo" className="logo-left" />
-            <h1>
-                Provincial Environment
-                <span className="and"> and</span>
-                <span className="sec_row">Natural Resources Office</span>
-            </h1>
-            <img src={logo} alt="Logo" className="logo-right" />
-            <div className="rectangle">
-                <h2>Online Forestry Services</h2>
+            <div className="logo">
+                <img src={logo} alt="Logo" />
+                <h1 className="logo-text">Forestry Services</h1>
+            </div>
+            <nav className="nav-links">
+                <Link to="/" style={{fontSize: "18px"}}>Home</Link>
+                <Link to="/permits" style={{fontSize: "18px"}}>Apply</Link>
+                <Link to="/status" style={{fontSize: "18px"}}>Status</Link>
+                <Link to="/admin" style={{fontSize: "18px"}}>Admin</Link>
+            </nav>
+            <div className="right-container">
+                <img src={envelope} alt="Envelope" className="icon" />
+                <Notification />
+                <div className="profile">
+                    <img src={profilePic} alt="Profile" />
+                    <span>John Forest</span>
+                    <i className="bx bx-chevron-down"></i>
+                </div>
             </div>
         </header>
     );

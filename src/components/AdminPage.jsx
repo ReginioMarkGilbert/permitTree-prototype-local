@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles/AdminPage.css';
 import UpdateForm from './UpdateForm';
 import backHome from '../assets/back_home.svg';
 import filter from '../assets/Filter.svg';
 import refreshIcon from '../assets/refresh_page_icn.svg';
 
-const AdminPage = ({ onHome }) => {
+const AdminPage = () => {
     const [applications, setApplications] = useState([]);
     const [filteredApplications, setFilteredApplications] = useState([]);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
@@ -25,6 +26,8 @@ const AdminPage = ({ onHome }) => {
     const [newPowerOutput, setNewPowerOutput] = useState('');
     const [newFileNames, setNewFileNames] = useState([]);
     const [newStore, setNewStore] = useState('');
+
+    const navigate = useNavigate(); // Initialize navigate using useNavigate hook
 
     const fetchApplications = useCallback(async () => {
         try {
@@ -171,9 +174,13 @@ const AdminPage = ({ onHome }) => {
         fetchApplications();
     };
 
+    const handleHomeClick = () => {
+        navigate('/'); // Navigate to the home page
+    };
+
     return (
         <div className="admin-page">
-            <div className="home-button" onClick={onHome}>
+            <div className="home-button" onClick={handleHomeClick}>
                 <img src={backHome} alt="Home" />
             </div>
             <h2>Admin Dashboard</h2>
@@ -282,3 +289,4 @@ const AdminPage = ({ onHome }) => {
 };
 
 export default AdminPage;
+

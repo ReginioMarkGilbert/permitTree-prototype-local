@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles/StatusPage.css';
 import UpdateForm from './UpdateForm';
 import backHome from '../assets/back_home.svg';
 import refreshIcon from '../assets/refresh_page_icn.svg';
 
-const StatusPage = ({ applicationId, onHome }) => {
+const StatusPage = ({ applicationId }) => {
     const [applications, setApplications] = useState([]);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [selectedApplication, setSelectedApplication] = useState(null);
@@ -19,6 +20,8 @@ const StatusPage = ({ applicationId, onHome }) => {
     const [newPowerOutput, setNewPowerOutput] = useState('');
     const [newFileNames, setNewFileNames] = useState([]);
     const [newStore, setNewStore] = useState('');
+
+    const navigate = useNavigate(); // Initialize navigate using useNavigate hook
 
     useEffect(() => {
         fetchApplications();
@@ -67,7 +70,7 @@ const StatusPage = ({ applicationId, onHome }) => {
             dateOfAcquisition: newDateOfAcquisition,
             powerOutput: newPowerOutput,
             fileNames: newFileNames,
-            store: newStore
+            store: newStore,
         };
 
         try {
@@ -111,13 +114,19 @@ const StatusPage = ({ applicationId, onHome }) => {
         fetchApplications();
     };
 
+    const handleHomeClick = () => {
+        navigate('/'); // Navigate to the home page
+    };
+
     return (
         <div className="status-page">
-            <div className="home-button" onClick={onHome}>
-                <img src={backHome} alt="Home" />
+            <div className="icon-container">
+                <div className="home-button" onClick={handleHomeClick}>
+                    <img src={backHome} alt="Home" />
+                </div>
+                <img src={refreshIcon} alt="Refresh" className="status-refresh-icon" onClick={handleRefreshClick} />
             </div>
             <h2>Application Status</h2>
-            <img src={refreshIcon} alt="Refresh" className="status-refresh-icon" onClick={handleRefreshClick} />
             <table>
                 <thead>
                     <tr>
