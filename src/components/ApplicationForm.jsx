@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/ApplicationForm.css';
 import uploadIcon from '../assets/upload_icn.svg';
@@ -8,12 +8,21 @@ const ApplicationForm = ({ onSubmit, selectedStore }) => {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
-    const [fileNames, setFileNames] = useState([]);
+    const [fileNames, setFileNames] = useState(() => {
+        // Load file names from localStorage
+        const savedFileNames = localStorage.getItem('fileNames');
+        return savedFileNames ? JSON.parse(savedFileNames) : [];
+    });
     const [brand, setBrand] = useState('');
     const [model, setModel] = useState('');
     const [serialNumber, setSerialNumber] = useState('');
     const [dateOfAcquisition, setDateOfAcquisition] = useState('');
     const [powerOutput, setPowerOutput] = useState('');
+
+    useEffect(() => {
+        // Save file names to localStorage whenever they change
+        localStorage.setItem('fileNames', JSON.stringify(fileNames));
+    }, [fileNames]);
 
     const navigate = useNavigate(); // Initialize navigate
 
