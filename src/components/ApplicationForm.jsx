@@ -9,8 +9,8 @@ const ApplicationForm = ({ onSubmit, selectedStore }) => {
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [fileNames, setFileNames] = useState(() => {
-        // Load file names from localStorage
-        const savedFileNames = localStorage.getItem('fileNames');
+        // Load file names from sessionStorage
+        const savedFileNames = sessionStorage.getItem('fileNames');
         return savedFileNames ? JSON.parse(savedFileNames) : [];
     });
     const [brand, setBrand] = useState('');
@@ -20,8 +20,8 @@ const ApplicationForm = ({ onSubmit, selectedStore }) => {
     const [powerOutput, setPowerOutput] = useState('');
 
     useEffect(() => {
-        // Save file names to localStorage whenever they change
-        localStorage.setItem('fileNames', JSON.stringify(fileNames));
+        // Save file names to sessionStorage whenever they change
+        sessionStorage.setItem('fileNames', JSON.stringify(fileNames));
     }, [fileNames]);
 
     const navigate = useNavigate(); // Initialize navigate
@@ -79,6 +79,7 @@ const ApplicationForm = ({ onSubmit, selectedStore }) => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Application submitted:', data);
+                sessionStorage.removeItem('fileNames'); // Clear sessionStorage on successful submission
                 navigate('/message'); // Navigate to the MessageBox component
             } else {
                 console.error('Failed to submit application');

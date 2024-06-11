@@ -41,7 +41,7 @@ const HomePage = () => {
                 </div>
                 <div className="center-box">
                     <h3>Tree cutting permit 3</h3>
-                    <p>Application for Tree cutting permit 3</p>
+                    <p>Application for Public Tree cutting permit</p>
                     <button className="apply-button" onClick={handleApplyClick}>APPLY</button>
                 </div>
             </div>
